@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, StaticQuery, graphql } from "gatsby"
 import styles from "./header.module.scss"
 
 const HeaderLink = props => (
@@ -36,17 +36,29 @@ const SocialButton = props => {
   )
 }
 
-export default props => (
-  <header className={styles.container}>
-    <div className={styles.row}>
-      <HomeButton to={"/"} text={"My Gatsby Blog"} />
-      <SocialButton site="github" username="oguzhanturgut"></SocialButton>
-      <SocialButton site="linkedin" username="oguzhanturgut"></SocialButton>
-      <SocialButton site="twitter" username="oguzhanturgut"></SocialButton>
-    </div>
-    <div className={styles.row}>
-      <HeaderLink to={"/"} text={"ARTICLES"} />
-      <HeaderLink to={"/about"} text={"ABOUT"} />
-    </div>
-  </header>
+export default () => (
+  <StaticQuery query={ graphql `
+  query{
+    site {
+      siteMetadata{
+        title
+      }
+   }
+ }
+ `} render={ data => (
+                   <header className={styles.container}>
+                     <div className={styles.row}>
+                       <HomeButton to={"/"} text={data.site.siteMetadata.title} />
+                       <SocialButton site="github" username="oguzhanturgut"></SocialButton>
+                       <SocialButton site="linkedin" username="oguzhanturgut"></SocialButton>
+                       <SocialButton site="twitter" username="oguzhanturgut"></SocialButton>
+                     </div>
+                     <div className={styles.row}>
+                       <HeaderLink to={"/"} text={"ARTICLES"} />
+                       <HeaderLink to={"/about"} text={"ABOUT"} />
+                     </div>
+                   </header>
+                 )
+               }
+  />
 )

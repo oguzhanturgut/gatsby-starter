@@ -4,10 +4,11 @@ import { Link } from "gatsby"
 import Layout from "../component/layout"
 import Title from '../component/title'
 
-export default () => (
+export default (props) => (
   <Layout>
     <div>
-      <Title text='Index Page'/>
+      <Title text={'Welcome'}/>
+      {/*<Title text={props.data.site.siteMetadata.title}/>*/}
       <div>
         <Link to="/">Home</Link> | <Link to="/about">About Me</Link>
       </div>
@@ -20,3 +21,11 @@ export default () => (
     </div>
   </Layout>
 )
+
+// export const query = graphql `query{
+//   site {
+//     siteMetadata{
+//       title
+//     }
+//   }
+// }`
